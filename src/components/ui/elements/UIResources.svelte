@@ -8,7 +8,7 @@
 
 </script>
 
-<div class="list">
+<div class="list" >
     {#each RESOURCE_LIST as id}
         <UIResource {game} {id} />
     {/each}
@@ -24,6 +24,8 @@
         background-color: #444444;
         padding: 1rem;
         row-gap: 1rem;
-        overflow-y: auto;
+        column-gap: 1rem;
+        overflow: hidden auto;
     }
+
 </style>

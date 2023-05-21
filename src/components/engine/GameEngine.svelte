@@ -1,7 +1,7 @@
 <script>
     import SaveStateManager from "./SaveStateManager.svelte"
     import GameSettings from "components/engine/GameSettings.svelte"
-    import GameResources from "components/engine/elements/GameResourses.svelte"
+    import GameResources from "components/engine/elements/GameResources.svelte"
     import Trigger from "utility/trigger-svelte.js"
     import GameUpgrades from "components/engine/elements/GameUpgrades.svelte"
     import GameUpgradeFilters from "components/engine/elements/GameUpgradeFilters.svelte"
@@ -62,7 +62,7 @@
                   defaultState={DEFAULT_GAME_STATE}
                   {metaFunction}
                   {offlineFunction}
-                  actionsaveEvents={["bar-maxed"]}
+                  actionsaveEvents={["command-buy-upgrade"]}
                   backupEvents={[]}
                   autosaveInterval={15000}
                   actionsaveInterval={2000}

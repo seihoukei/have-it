@@ -1,6 +1,6 @@
 <script>
     import RESOURCES from "data/data-resources.js"
-    import GameResourse from "components/engine/elements/GameResourse.svelte"
+    import GameResource from "components/engine/elements/GameResource.svelte"
 
     export let resources = {}
 
@@ -8,5 +8,5 @@
 </script>
 
 {#each RESOURCE_LIST as id}
-    <GameResourse {id} bind:resource={resources[id]} />
+    <GameResource {id} bind:resource={resources[id]} />
 {/each}

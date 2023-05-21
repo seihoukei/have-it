@@ -63,8 +63,39 @@ span.icon.triangle {
   );
   background-size: 0.75em 1.25em,  0.75em 1.25em;
   background-repeat: no-repeat;
-  background-position: 0 0, 0.75em 0, 0 0;
+  background-position: 0 0, 0.75em 0;
 }
+
+span.icon.skew {
+  background: linear-gradient(110deg,
+    #00000000, #00000000 28%,
+    var(--icon-color) 28%, var(--icon-color) 72%,
+    #00000000 72%, #00000000
+  );
+  background-size: 1.5em 1.5em;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+
+span.icon.diamond {
+  background: linear-gradient(45deg,
+  #00000000, #00000000 50%,
+  var(--icon-color) 50%, var(--icon-color)
+  ),linear-gradient(-45deg,
+          #00000000, #00000000 50%,
+          var(--icon-color) 50%, var(--icon-color)
+  ),linear-gradient(-135deg,
+          #00000000, #00000000 50%,
+          var(--icon-color) 50%, var(--icon-color)
+  ),linear-gradient(135deg,
+          #00000000, #00000000 50%,
+          var(--icon-color) 50%, var(--icon-color)
+  );
+  background-size: 0.75em 0.75em;
+  background-repeat: no-repeat;
+  background-position: 0 0.75em, 0.75em 0.75em, 0.75em 0, 0 0;
+}
+
 
 div.no-icon-text span.icon {
   color: var(--icon-color);

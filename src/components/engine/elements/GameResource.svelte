@@ -9,6 +9,8 @@
     Trigger.on("command-spend-resources", spend)
     Trigger.on("command-unlock-resource", unlock)
     Trigger.on("command-boost-resource", boost)
+    Trigger.on("command-toggle-autodonate", toggleDonate)
+    Trigger.on("command-toggle-autoboost", toggleBoost)
 
     function getDefaultValue(id) {
         const data = RESOURCES[id]
@@ -19,6 +21,8 @@
             seen : data.seenAtStart,
             time : null,
             available : false,
+            autoDonate : false,
+            autoBoost : false,
         }
         return resource
     }
@@ -27,12 +31,24 @@
         if (!resource.seen)
             return
 
-        if (resource.value >= resource.max)
+        if (resource.value >= resource.max) {
+            if (id === "CA" && resource.max > 1) {
+                if (resource.autoBoost)
+                    Trigger("command-buy-upgrade", `boost${id}`)
+            } else if (resource.max < 1) {
+                if (resource.autoDonate)
+                    Trigger("command-buy-upgrade", `donate${id}`)
+            }
+
             return
+        }
 
         resource.value += time
-        if (resource.value > resource.max)
+
+        if (resource.value >= resource.max) {
             resource.value = resource.max
+
+        }
 
         updateState()
     }
@@ -66,6 +82,20 @@
 
         resource.max /= ratio
         resource.value /= ratio
+    }
+
+    function toggleDonate(target) {
+        if (target !== id)
+            return
+
+        resource.autoDonate = !resource.autoDonate
+    }
+
+    function toggleBoost(target) {
+        if (target !== id)
+            return
+
+        resource.autoBoost = !resource.autoBoost
     }
 
 </script>

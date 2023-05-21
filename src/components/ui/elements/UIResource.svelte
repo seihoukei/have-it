@@ -1,5 +1,6 @@
 <script>
     import RESOURCES from "data/data-resources.js"
+    import hoverable from "utility/hoverable.js"
 
     export let game
     export let id
@@ -19,7 +20,9 @@
 {#if seen}
     <div class="resource"
          class:available
-         style={cssVariables}>
+         style={cssVariables}
+         use:hoverable={{resource: id}}
+    >
         <div class="bar layer {data.class}"></div>
         <div class="icon-text layer">{data.text}</div>
         <div class="fade layer {data.class}"></div>
@@ -92,6 +95,42 @@
         background-position: 0 0, 2.5em 0, 0 0;
     }
 
+    div.bar.skew {
+        background: linear-gradient(110deg,
+            #444444, #444444 28%,
+            #44444400 28%, #44444400 72%,
+            #444444 72%, #444444
+        ),
+        linear-gradient(to top,
+                var(--bar-color), var(--bar-color) var(--bar-progress),
+                #444444 var(--bar-progress), #444444
+        );
+        background-repeat: no-repeat;
+    }
+
+    div.bar.diamond {
+        background: linear-gradient(45deg,
+        #444444, #444444 50%,
+        #44444400 50%, #44444400
+        ),linear-gradient(-45deg,
+                #444444, #444444 50%,
+                #44444400 50%, #44444400
+        ),linear-gradient(-135deg,
+                #444444, #444444 50%,
+                #44444400 50%, #44444400
+        ),linear-gradient(135deg,
+                #444444, #444444 50%,
+                #44444400 50%, #44444400
+        ),
+        linear-gradient(to top,
+                var(--bar-color), var(--bar-color) var(--bar-progress),
+                #444444 var(--bar-progress), #444444
+        );
+        background-size: 2.5em 2.5em,  2.5em 2.5em,  2.5em 2.5em,  2.5em 2.5em, 5em 5em;
+        background-repeat: no-repeat;
+        background-position: 0 2.5em, 2.5em 2.5em, 2.5em 0, 0 0, 0 0;
+    }
+
     div.icon-text {
         display: flex;
         align-items: center;
@@ -143,6 +182,33 @@
         background-repeat: no-repeat;
         background-position: 0 0, 2.5em 0;
     }
+    div.fade.skew:not(div.available div) {
+        background: linear-gradient(110deg,
+        #00000000, #00000000 28%,
+        #00000077 28%, #00000000, #00000077 72%,
+        #00000000 72%, #00000000
+        );
+        background-repeat: no-repeat;
+    }
+    div.fade.diamond:not(div.available div) {
+        background: linear-gradient(45deg,
+        #00000000, #00000000 50%,
+        #00000077 50%, #00000000 75%
+        ),linear-gradient(-45deg,
+                #00000000, #00000000 50%,
+                #00000077 50%, #00000000 75%
+        ),linear-gradient(-135deg,
+                #00000000, #00000000 50%,
+                #00000077 50%, #00000000 75%
+        ),linear-gradient(135deg,
+                #00000000, #00000000 50%,
+                #00000077 50%, #00000000 75%
+        );
+        background-size: 2.5em 2.5em,  2.5em 2.5em,  2.5em 2.5em,  2.5em 2.5em;
+        background-repeat: no-repeat;
+        background-position: 0 2.5em, 2.5em 2.5em, 2.5em 0, 0 0;
+    }
+
 
 
 </style>

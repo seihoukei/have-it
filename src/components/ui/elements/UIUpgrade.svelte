@@ -40,11 +40,22 @@
 
     $: available = seen && cost.every(x => resources[x]?.available)
 
+    $: autoAvailable = data.autoUpgrade && upgrades[data.autoUpgrade]?.owned
+    $: autoActive = data.isAuto && autoAvailable && resources[data.isAuto[0]][data.isAuto[1]]
+    $: autoAction = data.autoAction ?? null
+
     function buy() {
         if (!available)
             return
 
         Trigger("command-buy-upgrade", id)
+    }
+
+    function toggleAuto() {
+        if (autoAction === null || !autoAvailable)
+            return
+
+        Trigger(...autoAction)
     }
 
     $: costText = cost.length
@@ -56,8 +67,6 @@
 {#if seen}
     <div class="upgrade"
          class:available
-         use:interactive
-         on:basicaction={buy}
     >
         {#if repeatable}
             <div class="left corner"
@@ -66,10 +75,31 @@
                 ⟳
             </div>
         {/if}
-        <div class="cost line">
+        {#if autoAvailable}
+            <div class="right corner"
+                 use:hoverable={`Automatable\n\nClick header or right-click\nto toggle automation:\n${data.autoText}`}
+                 use:interactive
+                 on:basicaction={toggleAuto}
+            >
+                {#if autoActive}
+                    ON
+                {:else}
+                    OFF
+                {/if}
+            </div>
+        {/if}
+        <div class="cost line"
+             use:interactive
+             on:basicaction={autoAvailable ? toggleAuto : buy}
+             on:specialaction={toggleAuto}
+        >
             {@html costText}
         </div>
-        <div class="description line">
+        <div class="description line"
+             use:interactive
+             on:basicaction={buy}
+             on:specialaction={toggleAuto}
+        >
             <div class="text">
                 {@html descriptionText}
             </div>
@@ -80,15 +110,13 @@
 <style>
     div.upgrade {
         position: relative;
-        width: 10em;
-        height: 7em;
+        width: 12em;
+        height: 9em;
 
         display: flex;
         flex-direction: column;
         align-items: stretch;
-        justify-content: space-between;
-        padding : 1rem;
-        row-gap: 1rem;
+        justify-content: stretch;
 
         background-color: #444444;
         transition: opacity 0.2s, background-color 0.2s;
@@ -105,6 +133,7 @@
 
     div.description {
         flex-grow: 1;
+        padding : 1rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -121,14 +150,24 @@
 
     div.cost {
         background-color: #00000044;
-        padding : 0.5rem 1rem;
-        margin: -1rem -1rem 0;
+        padding : 1rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: 0.2em;
     }
 
     div.corner.left {
         padding: 0.5rem;
         position: absolute;
         left: 0;
+        top : 0;
+    }
+
+    div.corner.right {
+        padding: 0.5rem;
+        position: absolute;
+        right: 0;
         top : 0;
     }
 

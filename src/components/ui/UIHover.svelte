@@ -13,6 +13,8 @@
 
     $: hidden = data?.hidden
 
+    $: resource = game?.state?.resources?.[data?.resource]
+
     $: cssVariables = `\
         --hover-x:${x + 12}px;\
         --hover-y:${y+ 2}px;\
@@ -37,12 +39,36 @@
         }
     }
 
+    function timeDisplay(value) {
+        if (value < 60) {
+            return value.toFixed(1) + "s"
+        } else {
+            const seconds = value % 60 | 0
+            const minutes = value / 60 % 60 | 0
+            const hours = value / 3600 | 0
+            return (hours > 100
+                    ? `${hours}:${minutes}`
+                    : `${hours}:${minutes}:${seconds}`
+            )
+                .replace(/:(\d)(?=:|$)/g, ":0$1") // add leading zeroes for parts
+                .replace(/^(00?:)*0?/g, "") // remove leading zeroes overall
+        }
+    }
+
 </script>
 
 
 {#if data && !hidden}
     <div class="hover" style={cssVariables}>
-        {data ?? "I'm in loss."}
+        {#if data.resource}
+            {#if resource.value < resource.max}
+                ETA: {timeDisplay(resource.max - resource.value)}
+            {:else }
+                You have it!
+            {/if}
+        {:else}
+            {data ?? "I'm in loss."}
+        {/if}
     </div>
 {/if}
 
