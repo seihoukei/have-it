@@ -62,9 +62,9 @@
     <div class="hover" style={cssVariables}>
         {#if data.resource}
             {#if resource.value < resource.max}
-                ETA: {timeDisplay(resource.max - resource.value)}
+                ETA: {timeDisplay(resource.max - resource.value)} / {timeDisplay(resource.max)}
             {:else }
-                You have it!
+                You have it! / {timeDisplay(resource.max)}
             {/if}
         {:else}
             {data ?? "I'm in loss."}
