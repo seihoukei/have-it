@@ -1,0 +1,75 @@
+@font-face {
+  font-family: 'Open Sans';
+  src: url('/resources/fonts/opensans.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+}
+
+html, body {
+  background: #222222;
+  color: #CCCCCC;
+  margin : 0;
+  padding : 0;
+  font: 16px Open Sans, sans serif;
+  width : 100vw;
+  height : 100vh;
+  overflow: hidden;
+  user-select: none;
+}
+
+span.icon {
+  display : inline-block;
+  width : 1.5em;
+  height: 1.5em;
+  margin : -0.4em 0;
+  font-size: 0.75em;
+  color: #FFFFFF;
+  font-weight: bold;
+  text-align: center;
+
+  background-color: var(--icon-color);
+}
+
+span.icon.circle {
+  border-radius: 50%;
+}
+
+span.icon.hexagon {
+  background: linear-gradient(60deg,
+    #00000000, #00000000 35%,
+    var(--icon-color) 35%, var(--icon-color)
+  ),linear-gradient(-60deg,
+    #00000000, #00000000 35%,
+    var(--icon-color) 35%, var(--icon-color)
+  ),linear-gradient(-120deg,
+    #00000000, #00000000 35%,
+    var(--icon-color) 35%, var(--icon-color)
+  ),linear-gradient(120deg,
+    #00000000, #00000000 35%,
+    var(--icon-color) 35%, var(--icon-color)
+  );
+  background-size: 0.75em 0.75em;
+  background-repeat: no-repeat;
+  background-position: 0 0.75em, 0.75em 0.75em, 0.75em 0, 0 0;
+}
+
+span.icon.triangle {
+  background: linear-gradient(120deg,
+    #00000000, #00000000 50%,
+    var(--icon-color) 50%, var(--icon-color)
+  ),linear-gradient(-120deg,
+          #00000000, #00000000 50%,
+          var(--icon-color) 50%, var(--icon-color)
+  );
+  background-size: 0.75em 1.25em,  0.75em 1.25em;
+  background-repeat: no-repeat;
+  background-position: 0 0, 0.75em 0, 0 0;
+}
+
+div.no-icon-text span.icon {
+  color: var(--icon-color);
+}
+
+div.no-icon-text div.icon-text {
+  display: none;
+}
