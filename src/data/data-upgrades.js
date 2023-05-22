@@ -55,11 +55,11 @@ UPGRADES.autoBoostCA = {
     targets : ["CA"],
     description : "Unlock ~CA~ boost automation",
 }
-RESOURCES_LIST.slice(5,15).forEach((id, index) => {
+RESOURCES_LIST.slice(5,20).forEach((id, index) => {
     const past = RESOURCES_LIST[index]
     
     UPGRADES[`autoDonate${past}`] = {
-        cost : [...RESOURCES_LIST.slice(0, index + 6).slice(-3), RESOURCES_LIST[10 + Math.floor(index / 5) * 5]],
+        cost : [...RESOURCES_LIST.slice(0, index + 6 - Math.floor(index / 5) * 2).slice(-3), RESOURCES_LIST[10 + Math.floor(index / 5) * 3]],
         targets : [past],
         description: `Unlock ~${past}~ donation automation`,
     }
@@ -68,7 +68,7 @@ RESOURCES_LIST.slice(15, 25).forEach((id, index) => {
     const past = RESOURCES_LIST[index + 15]
     
     UPGRADES[`autoDonate${past}`] = {
-        cost : RESOURCES_LIST.slice(0, index + 16).slice(-3),
+        cost : RESOURCES_LIST.slice(0, index + 17).slice(-3),
         targets : [past],
         description: `Unlock ~${past}~ donation automation`,
     }

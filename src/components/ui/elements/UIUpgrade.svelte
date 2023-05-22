@@ -62,7 +62,9 @@
     }
 
     $: costText = cost.length
-        ? displayString(`~${cost.join("~ ~")}~`)
+        ? cost.length === 26
+            ? "EVERYTHING"
+            : displayString(`~${cost.join("~ ~")}~`)
         : "FREE"
     $: descriptionText = displayString(data.description)
 </script>
