@@ -22,6 +22,8 @@
     $: game.id = gameId
 
     Trigger.on("command-tick", tick)
+    Trigger.on("command-win", win)
+    Trigger.on("command-continue-game", continueGame)
 
     function getMilestones() {
         const resourceCaps = Object.values(state.resources)
@@ -42,6 +44,16 @@
             state.time += step
             timeToProcess -= step
         }
+    }
+
+    function win() {
+        state.continues = state.won ?? 0
+        state.won = state.continues + 1
+        state.lastWinTime = state.time
+    }
+
+    function continueGame() {
+        state.continues += 1
     }
 
     function metaFunction() {

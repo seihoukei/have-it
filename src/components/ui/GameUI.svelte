@@ -3,6 +3,7 @@
     import UIHover from "components/ui/UIHover.svelte"
     import UIResources from "components/ui/elements/UIResources.svelte"
     import UIUpgrades from "components/ui/elements/UIUpgrades.svelte"
+    import UIVictory from "components/ui/elements/UIVictory.svelte"
     export let game
 </script>
 
@@ -20,6 +21,7 @@
     </div>
 
     <UIHover {game} />
+    <UIVictory {game} />
 {/if}
 
 <style>

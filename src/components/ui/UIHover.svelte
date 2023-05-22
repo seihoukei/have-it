@@ -1,5 +1,6 @@
 <script>
     import Trigger from "utility/trigger-svelte.js"
+    import timeString from "utility/time-string.js"
 
     export let game
 
@@ -39,21 +40,7 @@
         }
     }
 
-    function timeDisplay(value) {
-        if (value < 60) {
-            return value.toFixed(1) + "s"
-        } else {
-            const seconds = value % 60 | 0
-            const minutes = value / 60 % 60 | 0
-            const hours = value / 3600 | 0
-            return (hours > 100
-                    ? `${hours}:${minutes}`
-                    : `${hours}:${minutes}:${seconds}`
-            )
-                .replace(/:(\d)(?=:|$)/g, ":0$1") // add leading zeroes for parts
-                .replace(/^(00?:)*0?/g, "") // remove leading zeroes overall
-        }
-    }
+
 
 </script>
 
@@ -62,9 +49,9 @@
     <div class="hover" style={cssVariables}>
         {#if data.resource}
             {#if resource.value < resource.max}
-                ETA: {timeDisplay(resource.max - resource.value)} / {timeDisplay(resource.max)}
+                ETA: {timeString(resource.max - resource.value)} / {timeString(resource.max)}
             {:else }
-                You have it! / {timeDisplay(resource.max)}
+                You have it! / {timeString(resource.max)}
             {/if}
         {:else}
             {data ?? "I'm in loss."}

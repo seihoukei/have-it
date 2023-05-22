@@ -6,7 +6,7 @@ const UPGRADES = {
     win : {
         cost: RESOURCES_LIST,
         effect: ["command-win"],
-        description: `Win the game (does nothing)`,
+        description: `Win the game`,
         repeatable: true,
     },
     boostCA : {
