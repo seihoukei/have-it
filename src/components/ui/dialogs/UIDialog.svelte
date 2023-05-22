@@ -6,7 +6,7 @@
     let holder
 
     function close(event) {
-        if (event.target === holder) {
+        if (event.target === holder && !modal) {
             Trigger("command-close-dialog")
         }
     }

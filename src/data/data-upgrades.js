@@ -45,7 +45,7 @@ RESOURCES_LIST.slice(5).forEach((id, index) => {
 RESOURCES_LIST.slice(1).forEach((id, index) => {
     UPGRADES[`boost${id}`] = {
         cost: RESOURCES_LIST.slice(0, index + 1).slice(-7),
-        effect: ["command-boost-resource", id, index + 2],
+        effect: ["command-boost-resource", id, Math.floor(index / 2) + 2],
         description: `Make ~${id}~ ${Math.floor(index / 2) + 2} times faster`,
     }
 })
