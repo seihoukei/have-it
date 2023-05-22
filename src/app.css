@@ -5,6 +5,15 @@
   font-weight: 400;
 }
 
+:root {
+  --ui-dialog-color: #777777;
+  --ui-dialog-section-color: #444444;
+
+  --ui-button-color: #222277;
+  --ui-button-hover-color: #444499;
+  --ui-button-disabled-color: #222222;
+}
+
 html, body {
   background: #222222;
   color: #CCCCCC;
