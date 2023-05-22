@@ -1,5 +1,4 @@
 <script>
-    import UIMeta from "./UIMeta.svelte"
     import UIHover from "components/ui/UIHover.svelte"
     import UIResources from "components/ui/elements/UIResources.svelte"
     import UIUpgrades from "components/ui/elements/UIUpgrades.svelte"
@@ -16,10 +15,6 @@
 </script>
 
 {#if game?.state}
-
-    {#if import.meta.env.MODE === "development"}
-        <UIMeta {game}/>
-    {/if}
 
     <div class="content"
          class:no-icon-text={!game?.state?.settings?.colorBlind}
