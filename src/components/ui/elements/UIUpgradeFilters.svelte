@@ -12,13 +12,16 @@
 
     $: resources = game?.state?.resources ?? {}
     $: knownResources = RESOURCES_LIST.filter(x => resources[x]?.seen)
-
     function resetFilter(type) {
         Trigger("command-reset-filters", type)
     }
 
     function setSetting() {
         Trigger("command-set-setting", "colorBlind", colorBlindToggle.checked)
+    }
+
+    function menu() {
+        Trigger("command-open-dialog", "menu")
     }
 </script>
 
@@ -71,10 +74,17 @@
             Reset
         </div>
     </div>
+    <div class="menu button"
+         use:interactive
+         on:basicaction={menu}
+    >
+        ☰
+    </div>
 </div>
 
 <style>
     div.filters {
+        position : relative;
         display: flex;
         flex-direction: column;
         row-gap: 1rem;
@@ -105,5 +115,12 @@
     div.button:hover {
         background-color: #666666;
         cursor: pointer;
+    }
+
+    div.menu.button {
+        position: absolute;
+        top : 1rem;
+        right : 1rem;
+        padding : 0.5em;
     }
 </style>

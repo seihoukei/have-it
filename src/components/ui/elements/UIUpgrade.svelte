@@ -4,6 +4,7 @@
     import Trigger from "utility/trigger-svelte.js"
     import displayString from "utility/display-string.js"
     import hoverable from "utility/hoverable.js"
+    import timeString from "utility/time-string.js"
 
     export let game
     export let id
@@ -43,6 +44,8 @@
     $: autoAvailable = data.autoUpgrade && upgrades[data.autoUpgrade]?.owned
     $: autoActive = data.isAuto && autoAvailable && resources[data.isAuto[0]][data.isAuto[1]]
     $: autoAction = data.autoAction ?? null
+    $: autoRate = game?.state?.autoRate ?? 1
+    $: autoText = data?.autoText?.replace?.("%rate%", `${autoRate.toFixed(2)}s`) ?? ""
 
     function buy() {
         if (!available)
@@ -76,17 +79,19 @@
             </div>
         {/if}
         {#if autoAvailable}
-            <div class="right corner"
-                 use:hoverable={`Automatable\n\nClick header or right-click\nto toggle automation:\n${data.autoText}`}
-                 use:interactive
-                 on:basicaction={toggleAuto}
-            >
-                {#if autoActive}
-                    ON
-                {:else}
-                    OFF
-                {/if}
-            </div>
+            {#key autoText}
+                <div class="right corner"
+                     use:hoverable={`Automatable\n\nClick header or right-click\nto toggle automation:\n${autoText}`}
+                     use:interactive
+                     on:basicaction={toggleAuto}
+                >
+                    {#if autoActive}
+                        ON
+                    {:else}
+                        OFF
+                    {/if}
+                </div>
+            {/key}
         {/if}
         <div class="cost line"
              use:interactive

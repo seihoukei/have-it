@@ -13,4 +13,4 @@
 <GameEngine bind:game />
 <GameUI {game}/>
 
-<GameTimer rate=10 boost=1 event="command-tick" />
+<GameTimer rate=30 boost=1 event="command-tick" />

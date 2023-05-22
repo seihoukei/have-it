@@ -4,6 +4,14 @@
     import UIResources from "components/ui/elements/UIResources.svelte"
     import UIUpgrades from "components/ui/elements/UIUpgrades.svelte"
     import UIVictory from "components/ui/elements/UIVictory.svelte"
+    import UIDialogs from "components/ui/UIDialogs.svelte"
+    import UIMenu from "components/ui/dialogs/UIMenu.svelte"
+
+    const UI_DIALOGS = {
+        menu : UIMenu,
+    }
+
+
     export let game
 </script>
 
@@ -20,6 +28,7 @@
         <UIUpgrades {game} />
     </div>
 
+    <UIDialogs {game} dialogs={UI_DIALOGS}/>
     <UIHover {game} />
     <UIVictory {game} />
 {/if}

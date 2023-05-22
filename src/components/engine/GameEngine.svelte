@@ -5,10 +5,12 @@
     import Trigger from "utility/trigger-svelte.js"
     import GameUpgrades from "components/engine/elements/GameUpgrades.svelte"
     import GameUpgradeFilters from "components/engine/elements/GameUpgradeFilters.svelte"
+    import RESOURCES from "data/data-resources.js"
 
     const DEFAULT_GAME_STATE = Object.freeze({
         time : 0,
         targetTime : 0,
+        autoRate : 1,
     })
 
     const MAX_TICK_TIME = 10000
@@ -24,6 +26,11 @@
     Trigger.on("command-tick", tick)
     Trigger.on("command-win", win)
     Trigger.on("command-continue-game", continueGame)
+    Trigger.on("command-boost-automation", boostAuto)
+
+    function boostAuto(ratio) {
+        state.autoRate /= ratio
+    }
 
     function getMilestones() {
         const resourceCaps = Object.values(state.resources)
@@ -57,6 +64,9 @@
     }
 
     function metaFunction() {
+        return {
+            resources: Object.keys(RESOURCES).filter(x => game?.state?.resources?.[x]?.seen).length
+        }
         // form a metadata to access via saveInfo
     }
 
@@ -83,7 +93,7 @@
 
 {#key gameId}
     {#if state}
-        <GameResources bind:resources={state.resources} />
+        <GameResources {game} bind:resources={state.resources} />
         <GameUpgrades bind:upgrades={state.upgrades} />
         <GameUpgradeFilters bind:filters={state.upgradeFilters} />
 

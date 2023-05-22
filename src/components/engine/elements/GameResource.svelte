@@ -2,8 +2,16 @@
     import RESOURCES from "data/data-resources.js"
     import Trigger from "utility/trigger-svelte.js"
 
+    const RESOURCE_LIST = Object.keys(RESOURCES)
+
     export let id
+    export let index = 0
     export let resource = getDefaultValue(id)
+    export let game
+
+    $: autoRate = game?.state?.autoRate ?? 1
+    $: share = game?.state?.upgrades?.[`share${id}`]?.owned
+    $: sharingResources = RESOURCE_LIST.slice(0, index)
 
     Trigger.on("command-advance", advance)
     Trigger.on("command-spend-resources", spend)
@@ -31,11 +39,19 @@
         if (!resource.seen)
             return
 
+        resource.boost = 1
+
+        if (share) {
+            resource.boost *= 1.5 ** sharingResources
+                .filter(x => game?.state?.resources?.[x].available)
+                .length
+        }
+
         if (resource.value >= resource.max) {
-            if (id === "CA" && resource.max > 1) {
+            if (id === "CA" && resource.max > autoRate) {
                 if (resource.autoBoost)
                     Trigger("command-buy-upgrade", `boost${id}`)
-            } else if (resource.max < 1) {
+            } else if (resource.max < autoRate) {
                 if (resource.autoDonate)
                     Trigger("command-buy-upgrade", `donate${id}`)
             }
@@ -43,11 +59,10 @@
             return
         }
 
-        resource.value += time
+        resource.value += time * resource.boost
 
         if (resource.value >= resource.max) {
             resource.value = resource.max
-
         }
 
         updateState()

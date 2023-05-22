@@ -108,6 +108,7 @@
         const save = SaveProcessor.decode(saveData)
         if (save?._meta) {
             const loadedState = save.state
+            loadedState.autoRate ??= 1
             if (offlineTime)
                 offlineFunction?.(loadedState, (Date.now() - save._meta.date) / 1000)
             Object.assign(state, loadedState)
