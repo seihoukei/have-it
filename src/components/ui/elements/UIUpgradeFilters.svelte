@@ -87,6 +87,8 @@
         flex-direction: row;
         align-items: center;
         column-gap: 0.5em;
+        row-gap: 0.5em;
+        flex-wrap: wrap;
     }
 
     span.icon {
